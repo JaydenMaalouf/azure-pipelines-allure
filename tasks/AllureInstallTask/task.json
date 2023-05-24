@@ -1,0 +1,21 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
+  "id": "0d6fcf3a-3a59-419c-8fed-5074acaf4699",
+  "name": "AllureInstallTask",
+  "friendlyName": "Allure Commandline Installer Task",
+  "description": "Install the Allure Commandline before running the Generate task to ensure it exists.",
+  "helpMarkDown": "",
+  "category": "Utility",
+  "author": "Jayden Maalouf",
+  "version": {
+    "Major": 0,
+    "Minor": 1,
+    "Patch": 8
+  },
+  "instanceNameFormat": "Allure Install",
+  "execution": {
+    "Node10": {
+      "target": "src/index.js"
+    }
+  }
+}

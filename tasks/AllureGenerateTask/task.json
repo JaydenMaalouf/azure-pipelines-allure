@@ -1,0 +1,107 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
+  "id": "2f1fb45f-1828-460a-8f2e-ec5c31c36241",
+  "name": "AllureGenerateTask",
+  "friendlyName": "Allure Generate Report Task",
+  "description": "Generate an Allure Report export and view the output in Azure DevOps",
+  "helpMarkDown": "",
+  "category": "Utility",
+  "author": "Jayden Maalouf",
+  "version": {
+    "Major": 0,
+    "Minor": 1,
+    "Patch": 69
+  },
+  "instanceNameFormat": "Allure Generator",
+  "inputs": [
+    {
+      "name": "generateReport",
+      "type": "boolean",
+      "label": "Generate Report",
+      "defaultValue": true,
+      "helpMarkDown": "Generate Allure Report from Allure Results",
+      "required": false
+    },
+    {
+      "name": "workingDirectory",
+      "type": "filePath",
+      "label": "Configuration directory",
+      "defaultValue": "$(System.DefaultWorkingDirectory)",
+      "visibleRule": "generateReport = true",
+      "helpMarkDown": "Directory containing the Allure report output. The default value is $(System.DefaultWorkingDirectory)",
+      "required": false
+    },
+    {
+      "name": "reportDirectory",
+      "type": "filePath",
+      "label": "Report directory",
+      "defaultValue": "$(System.DefaultWorkingDirectory)/allure-report",
+      "helpMarkDown": "Directory to push the generated Allure export to. The default value is $(System.DefaultWorkingDirectory)/allure-report",
+      "required": false
+    },
+    {
+      "name": "outputDirectory",
+      "type": "filePath",
+      "label": "Output directory",
+      "defaultValue": "$(Build.ArtifactStagingDirectory)/complete.html",
+      "helpMarkDown": "Directory to push the generated Allure HTML. The default value is $(Build.ArtifactStagingDirectory)/complete.html",
+      "required": false
+    },
+    {
+      "name": "publishResults",
+      "type": "boolean",
+      "label": "Publish Test Results",
+      "defaultValue": true,
+      "helpMarkDown": "Publish Allure Test results to Azure DevOps",
+      "required": false
+    },
+    {
+      "name": "testResultsDirectory",
+      "type": "filePath",
+      "label": "Test Results directory",
+      "defaultValue": "$(System.DefaultWorkingDirectory)",
+      "visibleRule": "publishResults = true",
+      "helpMarkDown": "Directory to publish the test results from. The default value is $(System.DefaultWorkingDirectory)",
+      "required": false
+    },
+    {
+      "name": "runTitle",
+      "type": "string",
+      "label": "Test Result Run Title",
+      "defaultValue": "Allure Results",
+      "visibleRule": "publishResults = true",
+      "helpMarkDown": "Used to seperate the results in the Test Results viewer. The default value is 'Allure Results'",
+      "required": false
+    },
+    {
+      "name": "resultFilesFilter",
+      "type": "multiLine",
+      "label": "Result Files Filter",
+      "defaultValue": "**/*.xml",
+      "required": false,
+      "visibleRule": "publishResults = true",
+      "helpMarkDown": "Used to filter the results files passed to the Publish Test Results. The default value is **/*.xml"
+    },
+    {
+      "name": "testReporter",
+      "type": "pickList",
+      "label": "Unit Test Reporter",
+      "defaultValue": "JUnit",
+      "helpMarkDown": "Which Test Reporter to use when publishing Tests to Azure DevOps. The default value is 'JUnit'",
+      "visibleRule": "publishResults = true",
+      "required": false,
+      "options": {
+        "JUnit": "JUnit",
+        "NUnit": "NUnit",
+        "VSTest": "VSTest",
+        "xUnit": "xUnit",
+        "cTest": "cTest"
+      }
+    }
+  ],
+  "execution": {
+    "Node10": {
+      "target": "src/index.js"
+    }
+  }
+}

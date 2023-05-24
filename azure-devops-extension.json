@@ -1,0 +1,86 @@
+{
+  "manifestVersion": 1,
+  "id": "allure-reporter",
+  "publisher": "JaydenMaalouf",
+  "version": "1.0.117",
+  "name": "Allure Reporter",
+  "description": "Install and run Allure Generate directly in Azure DevOps and view the results in the build.",
+  "icons": {
+    "default": "images/icon.png",
+    "large": "images/icon.png"
+  },
+  "categories": [
+    "Azure Pipelines"
+  ],
+  "Tags": [
+    "Allure",
+    "Reporting",
+    "Generate",
+    "HTML",
+    "Tab",
+    "DevOps"
+  ],
+  "targets": [
+    {
+      "id": "Microsoft.VisualStudio.Services"
+    }
+  ],
+  "scopes": [
+    "vso.build_execute"
+  ],
+  "files": [
+    {
+      "path": "tasks/AllureGenerateTask"
+    },
+    {
+      "path": "tasks/AllureInstallTask"
+    },
+    {
+      "path": "dist",
+      "addressable": true
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "uri": "https://github.com/JaydenMaalouf/azure-pipelines-allure"
+  },
+  "contributions": [
+    {
+      "id": "pipeline-allure-tab",
+      "type": "ms.vss-build-web.build-results-tab",
+      "description": "Embed Allure HTML report in Azure Pipelines Build",
+      "targets": [
+        "ms.vss-build-web.build-results-view"
+      ],
+      "properties": {
+        "name": "Allure",
+        "uri": "dist/AllureReportTab/tabContent.html",
+        "registeredObjectId": "registerBuild",
+        "supportsTasks": [
+          "2f1fb45f-1828-460a-8f2e-ec5c31c36241"
+        ],
+        "dynamic": true
+      }
+    },
+    {
+      "id": "AllureGenerateTask",
+      "type": "ms.vss-distributed-task.task",
+      "targets": [
+        "ms.vss-distributed-task.tasks"
+      ],
+      "properties": {
+        "name": "tasks/AllureGenerateTask"
+      }
+    },
+    {
+      "id": "AllureInstallTask",
+      "type": "ms.vss-distributed-task.task",
+      "targets": [
+        "ms.vss-distributed-task.tasks"
+      ],
+      "properties": {
+        "name": "tasks/AllureInstallTask"
+      }
+    }
+  ]
+}
